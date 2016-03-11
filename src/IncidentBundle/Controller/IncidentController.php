@@ -73,7 +73,7 @@ class IncidentController extends Controller
     }
 
     /**
-     * @Route("*")
+     * @Route("/")
      * @Method({"PUT"})
      * @param Request $request
      * @return Response
