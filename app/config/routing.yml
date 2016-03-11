@@ -1,0 +1,4 @@
+incident:
+    resource: "@IncidentBundle/Controller/"
+    type:     annotation
+    prefix:   /incident

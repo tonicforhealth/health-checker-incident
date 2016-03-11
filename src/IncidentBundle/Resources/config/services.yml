@@ -1,0 +1,4 @@
+services:
+#    incident.example:
+#        class: IncidentBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
