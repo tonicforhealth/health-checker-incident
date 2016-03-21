@@ -57,7 +57,7 @@ class IncidentController extends Controller
         /** @var Incident $incident */
         $incident = $this->getIncident($id);
         if ($incident) {
-            $entityManager = $this->getDoctrine()->getEntityManager();
+            $entityManager = $this->getDoctrine()->getManager();
             /** @var Serializer $serializer */
             $serializer = $this->get('jms_serializer');
             $incidentNew = $serializer->deserialize($request->getContent(), Incident::class, 'json');
@@ -82,7 +82,7 @@ class IncidentController extends Controller
     {
         $responseData = ['data' => [], 'error' => []];
 
-        $entityManager = $this->getDoctrine()->getEntityManager();
+        $entityManager = $this->getDoctrine()->getManager();
         /** @var Serializer $serializer */
         $serializer = $this->get('jms_serializer');
         /** @var Incident $incident */
@@ -106,7 +106,7 @@ class IncidentController extends Controller
         /** @var Incident $incident */
         $incident = $this->getIncident($id);
         if ($incident) {
-            $entityManager = $this->getDoctrine()->getEntityManager();
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($incident);
             $entityManager->flush();
         } else {
