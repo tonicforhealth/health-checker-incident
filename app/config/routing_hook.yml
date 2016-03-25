@@ -1,0 +1,7 @@
+incident:
+    resource: "@IncidentBundle/Controller/IncidentHookController.php"
+    type:     annotation
+    prefix:   /incident/hook
+
+_base:
+    resource: routing_base.yml

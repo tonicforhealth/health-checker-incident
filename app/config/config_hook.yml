@@ -1,0 +1,7 @@
+imports:
+    - { resource: config.yml }
+    - { resource: security_hook.yml }
+
+framework:
+    router:
+        resource: "%kernel.root_dir%/config/routing_hook.yml"

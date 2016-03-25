@@ -1,4 +1,165 @@
+parameters:
+    incident.notifications.file.message_path: /tmp
+
+    incident.notifications.email.transport.server: localhost
+    incident.notifications.email.transport.port: 25
+    incident.notifications.email.transport.security: null
+    incident.notifications.email.transport.username: ~
+    incident.notifications.email.transport.password: ~
+    incident.notifications.email.from: healthcheck@example.com
+    incident.notifications.email.from_name: Health Check
+
+    incident.notifications.request.auth.token: null
+    incident.notifications.request.auth.username: null
+    incident.notifications.request.auth.password: null
+    incident.notifications.request.resource_url: null
+
+    incident.notifications.subjects: {}
+
 services:
-#    incident.example:
-#        class: IncidentBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+    incident.siren:
+        class: TonicHealthCheck\Incident\Siren\IncidentSirenCollection
+
+    incident.subject_prototype:
+        class: TonicHealthCheck\Incident\Siren\Subject\Subject
+        abstract: true
+        arguments:
+          - any
+          - null
+
+    incident.schedule.fieldfactory:
+        class: Cron\FieldFactory
+
+    incident.schedule_prototype:
+        class: Cron\CronExpression
+        abstract: true
+        arguments:
+          - null
+          - '@incident.schedule.fieldfactory'
+
+
+    incident.eventsubscriber:
+        class: TonicHealthCheck\Incident\IncidentEventSubscriber
+        arguments: ['@incident.siren','%incident.notifications.subjects%']
+        tags:
+          - { name: doctrine.event_subscriber, connection: default }
+
+    incident.checks_type_mapper:
+        class: TonicHealthCheck\Incident\ChecksIncidentTypeMapper
+
+    incident.manager:
+        class: TonicHealthCheck\Incident\IncidentManager
+        arguments: ['@doctrine.orm.entity_manager', '@incident.checks_type_mapper']
+
+    incident.notifications.file:
+        class: TonicHealthCheck\Incident\Siren\NotificationType\FileNotificationType
+        arguments: ['%incident.notifications.file.message_path%']
+
+    incident.notifications.file.subjects:
+        class: TonicHealthCheck\Incident\Siren\Subject\SubjectCollection
+        tags:
+            - { name: incident.siren.notification.subjects, type_name: file }
+    incident.notifications.file.siren:
+        class: TonicHealthCheck\Incident\Siren\IncidentSiren
+        arguments:
+            - '@incident.notifications.file'
+            - '@incident.notifications.file.subjects'
+        tags:
+            - { name: incident.siren.notification }
+
+    incident.notifications.email.transport.factory:
+        abstract:
+        class: Swift_SmtpTransport
+
+    incident.notifications.email.transport:
+        class: Swift_SmtpTransport
+        factory: ["@incident.notifications.email.transport.factory", newInstance]
+        arguments:
+          - '%incident.notifications.email.transport.server%'
+          - '%incident.notifications.email.transport.port%'
+          - '%incident.notifications.email.transport.security%'
+        calls:
+          - [setUsername, ['%incident.notifications.email.transport.username%']]
+          - [setPassword, ['%incident.notifications.email.transport.password%']]
+
+    incident.notifications.email.mailer:
+        factory_class: Swift_Mailer
+        factory_method: newInstance
+        class: Swift_Mailer
+        arguments: ['@incident.notifications.email.transport']
+
+    incident.notifications.email:
+        class: TonicHealthCheck\Incident\Siren\NotificationType\EmailNotificationType
+        arguments:
+          - '@incident.notifications.email.mailer'
+          - '%incident.notifications.email.from%'
+          - '%incident.notifications.email.from_name%'
+
+    incident.notifications.email.subjects:
+        class: TonicHealthCheck\Incident\Siren\Subject\SubjectCollection
+        tags:
+            - { name: incident.siren.notification.subjects, type_name: email}
+
+    incident.notifications.email.siren:
+        class: TonicHealthCheck\Incident\Siren\IncidentSiren
+        arguments:
+            - '@incident.notifications.email'
+            - '@incident.notifications.email.subjects'
+        tags:
+            - { name: incident.siren.notification }
+
+
+
+
+    incident.notifications.request.client.auth:
+        class: TonicHealthCheck\CachetHQ\Authentication\Token
+        arguments: ['%incident.notifications.request.auth.token%']
+
+    incident.notifications.request.client.auth_pligin:
+        class: Http\Client\Plugin\AuthenticationPlugin
+        arguments: ['@incident.notifications.request.client.auth']
+
+    incident.notifications.request.httpclient.factory:
+        class: Http\Discovery\HttpClientDiscovery
+
+    incident.notifications.request.httpclient:
+        class: Http\Client\HttpClient
+        factory: ['@incident.notifications.request.httpclient.factory', 'find']
+
+    incident.notifications.request.pluginclient:
+        class: Http\Client\Plugin\PluginClient
+        arguments:
+              - '@incident.notifications.request.httpclient'
+              - ['@incident.notifications.request.client.auth_pligin']
+
+    incident.notifications.request.message_factory.factory:
+        class: Http\Discovery\MessageFactoryDiscovery
+
+    incident.notifications.request.message_factory:
+        class: Http\Message\MessageFactory
+        factory: ['@incident.notifications.request.message_factory.factory', 'find']
+
+    incident.notifications.request.client:
+        class: Http\Client\Common\HttpMethodsClient
+        arguments:
+            - '@incident.notifications.request.pluginclient'
+            - '@incident.notifications.request.message_factory'
+
+    incident.notifications.request:
+        class: TonicHealthCheck\Incident\Siren\NotificationType\RequestNotificationType
+        arguments:
+            - '@incident.notifications.request.client'
+            - '%incident.notifications.request.resource_url%'
+
+    incident.notifications.request.subjects:
+        class: TonicHealthCheck\Incident\Siren\Subject\SubjectCollection
+        tags:
+            - { name: incident.siren.notification.subjects, type_name: request }
+
+    incident.notifications.request.siren:
+        class: TonicHealthCheck\Incident\Siren\IncidentSiren
+        arguments:
+            - '@incident.notifications.request'
+            - '@incident.notifications.request.subjects'
+        tags:
+            - { name: incident.siren.notification }

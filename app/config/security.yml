@@ -5,7 +5,14 @@ security:
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    hook:
+                        password: '%hook_user_password%'
+                        roles: 'ROLE_USER'
+
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -13,8 +20,12 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
+        default:
             anonymous: ~
+            http_basic:
+                realm: 'Secured Demo Area'
+                provider: in_memory
+
             # activate different ways to authenticate
 
             # http_basic: ~
@@ -22,3 +33,4 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+

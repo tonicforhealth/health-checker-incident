@@ -23,51 +23,55 @@ class IncidentController extends Controller
     private $serializer;
 
     /**
-     * @Route("/{id}")
+     * @Route("/{ident}")
      * @Method({"GET"})
-     * @param int $id
+     * @param int $ident
      * @return Response
      */
-    public function getAction($id)
+    public function getAction($ident)
     {
+        $errors = [];
+        set_error_handler($this->getErrorHandlerCallback($errors));
+
         $responseData = ['data' => [], 'error' => []];
-        /** @var Incident $incident */
-        $incident = $this->getIncident($id);
-        if ($incident) {
+
+        if ($incident = $this->getIncident($ident, $errors)) {
             /** @var Serializer $serializer */
             $serializer = $this->get('jms_serializer');
             $responseData['data'] = $serializer->serialize($incident, 'json');
-        } else {
-            $responseData['error'] = 'Incident not find';
         }
+
+        $responseData['errors'] = $errors;
 
         return new Response(json_encode($responseData));
     }
 
     /**
-     * @Route("/{id}")
+     * @Route("/{ident}")
      * @Method({"POST"})
-     * @param int     $id
+     * @param int     $ident
      * @param Request $request
      * @return Response
      */
-    public function postAction($id, Request $request)
+    public function postAction($ident, Request $request)
     {
-        $responseData = ['data' => [], 'error' => []];
-        /** @var Incident $incident */
-        $incident = $this->getIncident($id);
-        if ($incident) {
+        $errors = [];
+        set_error_handler($this->getErrorHandlerCallback($errors));
+
+        $responseData = ['data' => [], 'errors' => []];
+
+        if ($incident = $this->getIncident($ident, $errors)) {
             $entityManager = $this->getDoctrine()->getManager();
             /** @var Serializer $serializer */
             $serializer = $this->get('jms_serializer');
             $incidentNew = $serializer->deserialize($request->getContent(), Incident::class, 'json');
             $incidentNew->setId($incident->getId());
-            $entityManager->persist($incidentNew);
+            $entityManager->merge($incidentNew);
             $entityManager->flush();
             $responseData['data'] = $this->get('jms_serializer')->serialize($incident, 'json');
-        } else {
-            $responseData['error'] = 'Incident not find';
         }
+
+        $responseData['errors'] = $errors;
 
         return new Response(json_encode($responseData));
     }
@@ -80,7 +84,10 @@ class IncidentController extends Controller
      */
     public function putAction(Request $request)
     {
-        $responseData = ['data' => [], 'error' => []];
+        $errors = [];
+        set_error_handler($this->getErrorHandlerCallback($errors));
+
+        $responseData = ['data' => [], 'errors' => []];
 
         $entityManager = $this->getDoctrine()->getManager();
         /** @var Serializer $serializer */
@@ -91,27 +98,31 @@ class IncidentController extends Controller
         $entityManager->flush();
         $responseData['data'] = $this->get('jms_serializer')->serialize($incident, 'json');
 
+        $responseData['errors'] = $errors;
+
         return new Response(json_encode($responseData));
     }
 
     /**
-     * @Route("/{id}")
+     * @Route("/{ident}")
      * @Method({"DELETE"})
-     * @param int $id
+     * @param int $ident
      * @return Response
      */
-    public function deleteAction($id)
+    public function deleteAction($ident)
     {
+        $errors = [];
+        set_error_handler($this->getErrorHandlerCallback($errors));
+
         $responseData = ['data' => [], 'error' => []];
-        /** @var Incident $incident */
-        $incident = $this->getIncident($id);
-        if ($incident) {
+
+        if ($incident = $this->getIncident($ident, $errors)) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($incident);
             $entityManager->flush();
-        } else {
-            $responseData['error'] = 'Incident not find';
         }
+
+        $responseData['errors'] = $errors;
 
         return new Response(json_encode($responseData));
     }
@@ -133,16 +144,31 @@ class IncidentController extends Controller
     }
 
     /**
-     * @param $id
+     * @param string $ident
+     * @param array $errors
      * @return Incident
      */
-    protected function getIncident($id)
+    protected function getIncident($ident, &$errors)
     {
         $incident = $this->getDoctrine()
             ->getRepository('IncidentBundle:Incident')
-            ->findOneBy(['id' => $id]);
+            ->findOneBy(['ident' => $ident]);
+        if (!$incident) {
+            $errors[] = ['code' => 404, 'text' => 'Incident not find'];
+        }
 
         return $incident;
+    }
+
+    /**
+     * @param array $errors
+     * @return \Closure
+     */
+    protected function getErrorHandlerCallback(&$errors)
+    {
+        return function ($errno, $errstr, $errfile, $errline) use (&$errors) {
+            $errors[] = ['code' => $errno, 'text' => $errstr];
+        };
     }
 
 

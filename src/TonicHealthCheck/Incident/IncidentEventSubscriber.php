@@ -6,7 +6,8 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\PreUpdate;
-use TonicHealthCheck\Entity\Incident;
+
+use IncidentBundle\Entity\Incident;
 use TonicHealthCheck\Incident\Siren\IncidentSiren;
 use TonicHealthCheck\Incident\Siren\IncidentSirenCollection;
 use TonicHealthCheck\Incident\Siren\NotificationType\EmailNotificationType;
@@ -69,7 +70,9 @@ class IncidentEventSubscriber implements EventSubscriber
      */
     public function preUpdate(PreUpdateEventArgs $args)
     {
+
         $entity = $args->getObject();
+
         if ($entity instanceof Incident && $args->hasChangedField('status')) {
             /** @var IncidentSiren $incidentI */
             foreach ($this->getIncidentSirenCollection() as $incidentI) {
@@ -88,6 +91,7 @@ class IncidentEventSubscriber implements EventSubscriber
                     }
                 }
             }
+
             $entity->notify();
         }
     }

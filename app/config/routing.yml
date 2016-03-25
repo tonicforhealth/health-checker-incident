@@ -1,4 +1,7 @@
 incident:
-    resource: "@IncidentBundle/Controller/"
+    resource: "@IncidentBundle/Controller/IncidentController.php"
     type:     annotation
     prefix:   /incident
+
+_base:
+    resource: routing_base.yml
