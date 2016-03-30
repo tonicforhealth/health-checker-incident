@@ -243,10 +243,6 @@
             "install-path": "vendor/symfony/polyfill-util",
             "installer": "composer"
         },
-        "symfony/swiftmailer-bundle": {
-            "install-path": "vendor/symfony/swiftmailer-bundle",
-            "installer": "composer"
-        },
         "symfony/symfony": {
             "install-path": "vendor/symfony/symfony",
             "installer": "composer"
