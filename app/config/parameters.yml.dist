@@ -19,4 +19,24 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
 
-    hook_user_password: changemepls
+    hook_user_password: changemepls04hg2@u8isd
+
+    incident.notifications.file.message_path: /tmp
+
+    incident.notifications.email.transport.server: localhost
+    incident.notifications.email.transport.port: 25
+    incident.notifications.email.transport.security: null
+    incident.notifications.email.transport.username: ~
+    incident.notifications.email.transport.password: ~
+    incident.notifications.email.from: healthcheck@example.com
+    incident.notifications.email.from_name: Health Check
+
+    incident.notifications.request.auth.token: null
+    incident.notifications.request.auth.username: null
+    incident.notifications.request.auth.password: null
+    incident.notifications.request.resource_url: /incidents
+
+    incident.notifications.subjects:
+        file: ~
+        request: ~
+        email: ~

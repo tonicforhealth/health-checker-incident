@@ -3,13 +3,12 @@
 namespace IncidentBundle\Controller;
 
 use IncidentBundle\Entity\Incident;
-use JMS\Serializer\Serializer;
-use JMS\SerializerBundle\DependencyInjection\JMSSerializerExtension;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use \Exception;
 
 /**
  * Class IncidentHookController
@@ -27,17 +26,38 @@ class IncidentHookController extends Controller
     {
         $errors = [];
         $responseData = [];
+        set_error_handler($this->getErrorHandlerCallback($errors));
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $incident = new Incident($checkIdent);
-        $incident->setMessage('Email don\'t recive proc check');
-        $incident->setStatus(500);
+        try {
+            $entityManager = $this->getDoctrine()->getManager();
+            $incident = new Incident($checkIdent);
+            $incident->setMessage('Email don\'t recive proc check');
+            $entityManager->persist($incident);
+            $entityManager->flush();
 
-        $entityManager->persist($incident);
+            $incident->setStatus(500);
+
+            $entityManager->flush();
 
 
+            $entityManager->persist($incident);
+            $entityManager->flush();
+        } catch(Exception $e) {
+            $errors[] = $e;
+        }
         $responseData['status'] = empty($errors)?'ok':'error';
 
         return new Response(json_encode($responseData));
+    }
+
+    /**
+     * @param array $errors
+     * @return \Closure
+     */
+    protected function getErrorHandlerCallback(&$errors)
+    {
+        return function ($errno, $errstr, $errfile, $errline) use (&$errors) {
+            $errors[] = ['code' => $errno, 'text' => $errstr];
+        };
     }
 }
