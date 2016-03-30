@@ -3432,12 +3432,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tonicforhealth/health-checker-incident-component.git",
-                "reference": "89746462280f3d3dd5ffa8389f49b386d179d0b3"
+                "reference": "64950e416918451f2cb4c7decb7dd4e01779f9e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tonicforhealth/health-checker-incident-component/zipball/89746462280f3d3dd5ffa8389f49b386d179d0b3",
-                "reference": "89746462280f3d3dd5ffa8389f49b386d179d0b3",
+                "url": "https://api.github.com/repos/tonicforhealth/health-checker-incident-component/zipball/64950e416918451f2cb4c7decb7dd4e01779f9e8",
+                "reference": "64950e416918451f2cb4c7decb7dd4e01779f9e8",
                 "shasum": ""
             },
             "require": {
