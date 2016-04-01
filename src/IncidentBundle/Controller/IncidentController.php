@@ -152,7 +152,7 @@ class IncidentController extends Controller
     {
         $incident = $this->getDoctrine()
             ->getRepository('IncidentBundle:Incident')
-            ->findOneBy(['ident' => $ident]);
+            ->findOneBy(['ident' => $ident], ['id' => 'desc']);
         if (!$incident) {
             $errors[] = ['code' => 404, 'text' => 'Incident not find'];
         }

@@ -35,6 +35,7 @@ class Incident implements IncidentInterface
 
     /**
      * @Id
+     * @Exclude
      * @Column(type="integer")
      * @GeneratedValue(strategy="IDENTITY")
      */
@@ -47,12 +48,14 @@ class Incident implements IncidentInterface
 
     /**
      * @Column(type="string", length=128)
+     * @Expose
      */
     private $ident;
 
     /**
      * Type of the problems (urgent, warning, minor)
      * @Column(type="string", length=32, name="`type`", nullable=true)
+     * @Expose
      * @Type("integer")
      */
     private $type = self::TYPE_URGENT;
