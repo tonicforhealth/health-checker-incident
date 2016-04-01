@@ -38,7 +38,7 @@ class IncidentController extends Controller
         if ($incident = $this->getIncident($ident, $errors)) {
             /** @var Serializer $serializer */
             $serializer = $this->get('jms_serializer');
-            $responseData['data'] = $serializer->serialize($incident, 'json');
+            $responseData['data'] = $serializer->toArray($incident);
         }
 
         $responseData['errors'] = $errors;
@@ -68,7 +68,7 @@ class IncidentController extends Controller
             $incidentNew->setId($incident->getId());
             $entityManager->merge($incidentNew);
             $entityManager->flush();
-            $responseData['data'] = $this->get('jms_serializer')->serialize($incident, 'json');
+            $responseData['data'] = $this->get('jms_serializer')->toArray($incident);
         }
 
         $responseData['errors'] = $errors;
@@ -96,7 +96,7 @@ class IncidentController extends Controller
         $incident = $serializer->deserialize($request->getContent(), Incident::class, 'json');
         $entityManager->persist($incident);
         $entityManager->flush();
-        $responseData['data'] = $this->get('jms_serializer')->serialize($incident, 'json');
+        $responseData['data'] = $this->get('jms_serializer')->toArray($incident);
 
         $responseData['errors'] = $errors;
 

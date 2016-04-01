@@ -56,7 +56,7 @@ class Incident implements IncidentInterface
      * Type of the problems (urgent, warning, minor)
      * @Column(type="string", length=32, name="`type`", nullable=true)
      * @Expose
-     * @Type("integer")
+     * @Type("string")
      */
     private $type = self::TYPE_URGENT;
 
