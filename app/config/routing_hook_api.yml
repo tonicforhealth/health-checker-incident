@@ -1,0 +1,4 @@
+incident:
+    resource: "@IncidentBundle/Controller/IncidentHookController.php"
+    type:     annotation
+    prefix:   /incident

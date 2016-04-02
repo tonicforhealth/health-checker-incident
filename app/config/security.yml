@@ -15,16 +15,17 @@ security:
         Symfony\Component\Security\Core\User\User: plaintext
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
-        default:
+        hmac_secured:
+            pattern: ^/webhookhmac/incident/
             anonymous: ~
-            http_basic:
-                realm: 'Secured Demo Area'
-                provider: in_memory
+            stateless: true  # HMAC is stateless!
+            provider: in_memory
+            hmac:
+                auth_header: Authorization # Name of the header to inspect
+                service_label: LE        # Service name/id
+                algorithm: sha1          # Hashing algoritm, see hash_algos()
+                verify_headers: ['method','Content-Type','content_md5', 'Date','path', 'X-Le-Nonce']         # Array or comma-separated list of headers
+
 
             # activate different ways to authenticate
 
@@ -33,4 +34,10 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-
+        http_basic:
+            anonymous: ~
+            pattern: ^/
+            security: true
+            http_basic:
+                realm: 'Secured Demo Area'
+                provider: in_memory

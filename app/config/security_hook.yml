@@ -1,18 +1,7 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
-
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
-    providers:
-        in_memory:
-            memory:
-                users:
-                    hook:
-                        password: '%hook_user_password%'
-                        roles: 'ROLE_USER'
-
-    encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
-
     access_control:
-        - { path: ^/, roles: ROLE_USER }
+        - { path: ^/webhook/, roles: ROLE_USER, requires_channel: https }
+        - { path: ^/, roles: ROLE_USER  }
+

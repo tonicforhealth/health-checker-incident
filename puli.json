@@ -57,6 +57,10 @@
             "install-path": "vendor/doctrine/orm",
             "installer": "composer"
         },
+        "gremo/hmac-authentication-bundle": {
+            "install-path": "vendor/gremo/hmac-authentication-bundle",
+            "installer": "composer"
+        },
         "guzzlehttp/guzzle": {
             "install-path": "vendor/guzzlehttp/guzzle",
             "installer": "composer"

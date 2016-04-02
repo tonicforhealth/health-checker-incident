@@ -18,7 +18,6 @@ class IncidentHookController extends Controller
 {
     /**
      * @Route("/dnnlpwo2cj287189282bbcnjskshewk/{checkIdent}")
-     * @Method({"GET"})
      * @param Request $request
      * @return Response
      */

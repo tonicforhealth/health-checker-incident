@@ -1,7 +1,9 @@
-incident:
-    resource: "@IncidentBundle/Controller/IncidentHookController.php"
-    type:     annotation
-    prefix:   /incident/hook
-
+http:
+    resource: routing_hook_api.yml
+    prefix: /{_hook}
+    requirements:
+        _hook: webhook|webhookhmac
+    defaults:
+        _hook: hook
 _base:
     resource: routing_base.yml
