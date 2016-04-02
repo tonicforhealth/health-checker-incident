@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cc7eef40dc9e6add0f4f421b89243cb3",
-    "content-hash": "8af4d9feca792167651c1c70228246b6",
+    "hash": "ed0a40ed85ba1640d1e691f511eded5c",
+    "content-hash": "b5dc28052906e0b6aa23839a6c46b955",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -2295,16 +2295,16 @@
         },
         {
             "name": "puli/composer-plugin",
-            "version": "1.0.0-beta9",
+            "version": "1.0.0-beta10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/puli/composer-plugin.git",
-                "reference": "a807314893420bd6c33402e7e9b01448748f3618"
+                "reference": "89f1d4df4cc24dc8025e3afb98b5fab0bd2df831"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/puli/composer-plugin/zipball/a807314893420bd6c33402e7e9b01448748f3618",
-                "reference": "a807314893420bd6c33402e7e9b01448748f3618",
+                "url": "https://api.github.com/repos/puli/composer-plugin/zipball/89f1d4df4cc24dc8025e3afb98b5fab0bd2df831",
+                "reference": "89f1d4df4cc24dc8025e3afb98b5fab0bd2df831",
                 "shasum": ""
             },
             "require": {
@@ -2313,6 +2313,7 @@
                 "puli/discovery": "^1.0-beta9",
                 "puli/repository": "^1.0-beta9",
                 "puli/url-generator": "^1.0-beta4",
+                "symfony/filesystem": "^2.3|^3.0",
                 "symfony/process": "^2.3|^3.0",
                 "webmozart/assert": "^1.0",
                 "webmozart/json": "^1.2.2",
@@ -2322,7 +2323,6 @@
                 "composer/composer": "^1.0-alpha10",
                 "phpunit/phpunit": "^4.6",
                 "sebastian/version": "^1.0.1",
-                "symfony/filesystem": "^2.3",
                 "webmozart/glob": "^4.0"
             },
             "type": "composer-plugin",
@@ -2349,7 +2349,7 @@
             ],
             "description": "Integrates Composer into the Puli package manager.",
             "homepage": "http://puli.io",
-            "time": "2016-01-14 12:40:31"
+            "time": "2016-03-31 12:15:22"
         },
         {
             "name": "puli/discovery",
@@ -3428,16 +3428,16 @@
         },
         {
             "name": "tonicforhealth/health-checker-incident-component",
-            "version": "v0.1.0",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tonicforhealth/health-checker-incident-component.git",
-                "reference": "64950e416918451f2cb4c7decb7dd4e01779f9e8"
+                "reference": "407aaa73ef271991d3357d2171c123f567260cf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tonicforhealth/health-checker-incident-component/zipball/64950e416918451f2cb4c7decb7dd4e01779f9e8",
-                "reference": "64950e416918451f2cb4c7decb7dd4e01779f9e8",
+                "url": "https://api.github.com/repos/tonicforhealth/health-checker-incident-component/zipball/407aaa73ef271991d3357d2171c123f567260cf3",
+                "reference": "407aaa73ef271991d3357d2171c123f567260cf3",
                 "shasum": ""
             },
             "require": {
@@ -3470,7 +3470,7 @@
                 }
             ],
             "description": "Health checker incident component",
-            "time": "2016-03-29 16:00:41"
+            "time": "2016-04-01 22:58:36"
         },
         {
             "name": "twig/twig",
