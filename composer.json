@@ -30,11 +30,13 @@
         "jms/serializer-bundle": "~1.1",
         "puli/symfony-bundle": "~1.0",
         "tonicforhealth/health-checker-incident-component": "~0.1",
-        "gremo/hmac-authentication-bundle": "^0.1.1"
+        "gremo/hmac-authentication-bundle": "^0.1.1",
+        "puli/composer-plugin": "^1.0.0-beta9"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "^3.0",
+        "phpunit/phpunit": "~4.8"
     },
     "scripts": {
         "post-install-cmd": [
@@ -57,7 +59,8 @@
     "config": {
         "platform": {
             "php": "5.5.9"
-        }
+        },
+        "bin-dir": "bin"
     },
     "repositories": [
         {
