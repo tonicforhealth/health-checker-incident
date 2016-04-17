@@ -30,7 +30,7 @@ class IncidentHookController extends Controller
         try {
             $entityManager = $this->getDoctrine()->getManager();
             $incident = new Incident($checkIdent);
-            $incident->setMessage('Email don\'t recive proc check');
+            $incident->setMessage('Email don\'t receive webhook check');
             $entityManager->persist($incident);
             $entityManager->flush();
 
