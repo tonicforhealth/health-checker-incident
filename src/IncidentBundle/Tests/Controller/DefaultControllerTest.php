@@ -4,6 +4,10 @@ namespace IncidentBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Class DefaultControllerTest
+ * @package IncidentBundle\Tests\Controller
+ */
 class DefaultControllerTest extends WebTestCase
 {
     public function testIndex()
@@ -12,6 +16,6 @@ class DefaultControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/');
 
-        $this->assertContains('Hello World', $client->getResponse()->getContent());
+        $this->assertContains('Welcome!', $client->getResponse()->getContent());
     }
 }

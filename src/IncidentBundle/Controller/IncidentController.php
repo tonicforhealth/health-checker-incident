@@ -2,6 +2,7 @@
 
 namespace IncidentBundle\Controller;
 
+use Exception;
 use IncidentBundle\Entity\Incident;
 use JMS\Serializer\Serializer;
 use JMS\SerializerBundle\DependencyInjection\JMSSerializerExtension;
@@ -34,13 +35,15 @@ class IncidentController extends Controller
         set_error_handler($this->getErrorHandlerCallback($errors));
 
         $responseData = ['data' => [], 'error' => []];
-
-        if ($incident = $this->getIncident($ident, $errors)) {
-            /** @var Serializer $serializer */
-            $serializer = $this->get('jms_serializer');
-            $responseData['data'] = $serializer->toArray($incident);
+        try {
+            if ($incident = $this->getIncident($ident, $errors)) {
+                /** @var Serializer $serializer */
+                $serializer = $this->get('jms_serializer');
+                $responseData['data'] = $serializer->toArray($incident);
+            }
+        } catch (Exception $e) {
+            $errors[] = $e;
         }
-
         $responseData['errors'] = $errors;
 
         return new Response(json_encode($responseData));
@@ -59,18 +62,20 @@ class IncidentController extends Controller
         set_error_handler($this->getErrorHandlerCallback($errors));
 
         $responseData = ['data' => [], 'errors' => []];
-
-        if ($incident = $this->getIncident($ident, $errors)) {
-            $entityManager = $this->getDoctrine()->getManager();
-            /** @var Serializer $serializer */
-            $serializer = $this->get('jms_serializer');
-            $incidentNew = $serializer->deserialize($request->getContent(), Incident::class, 'json');
-            $incidentNew->setId($incident->getId());
-            $entityManager->merge($incidentNew);
-            $entityManager->flush();
-            $responseData['data'] = $this->get('jms_serializer')->toArray($incident);
+        try {
+            if ($incident = $this->getIncident($ident, $errors)) {
+                $entityManager = $this->getDoctrine()->getManager();
+                /** @var Serializer $serializer */
+                $serializer = $this->get('jms_serializer');
+                $incidentNew = $serializer->deserialize($request->getContent(), Incident::class, 'json');
+                $incidentNew->setId($incident->getId());
+                $entityManager->merge($incidentNew);
+                $entityManager->flush();
+                $responseData['data'] = $this->get('jms_serializer')->toArray($incident);
+            }
+        } catch (Exception $e) {
+            $errors[] = $e;
         }
-
         $responseData['errors'] = $errors;
 
         return new Response(json_encode($responseData));
@@ -88,16 +93,18 @@ class IncidentController extends Controller
         set_error_handler($this->getErrorHandlerCallback($errors));
 
         $responseData = ['data' => [], 'errors' => []];
-
-        $entityManager = $this->getDoctrine()->getManager();
-        /** @var Serializer $serializer */
-        $serializer = $this->get('jms_serializer');
-        /** @var Incident $incident */
-        $incident = $serializer->deserialize($request->getContent(), Incident::class, 'json');
-        $entityManager->persist($incident);
-        $entityManager->flush();
-        $responseData['data'] = $this->get('jms_serializer')->toArray($incident);
-
+        try {
+            $entityManager = $this->getDoctrine()->getManager();
+            /** @var Serializer $serializer */
+            $serializer = $this->get('jms_serializer');
+            /** @var Incident $incident */
+            $incident = $serializer->deserialize($request->getContent(), Incident::class, 'json');
+            $entityManager->persist($incident);
+            $entityManager->flush();
+            $responseData['data'] = $this->get('jms_serializer')->toArray($incident);
+        } catch (Exception $e) {
+            $errors[] = $e;
+        }
         $responseData['errors'] = $errors;
 
         return new Response(json_encode($responseData));
@@ -114,12 +121,15 @@ class IncidentController extends Controller
         $errors = [];
         set_error_handler($this->getErrorHandlerCallback($errors));
 
-        $responseData = ['data' => [], 'error' => []];
-
-        if ($incident = $this->getIncident($ident, $errors)) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($incident);
-            $entityManager->flush();
+        $responseData = ['data' => [], 'errors' => []];
+        try {
+            if ($incident = $this->getIncident($ident, $errors)) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($incident);
+                $entityManager->flush();
+            }
+        } catch (Exception $e) {
+            $errors[] = $e;
         }
 
         $responseData['errors'] = $errors;

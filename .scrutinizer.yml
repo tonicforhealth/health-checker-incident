@@ -19,7 +19,7 @@ build:
     tests:
         override:
             -
-                command: bin/phpunit --coverage-clover=my-coverage-file
+                command: bin/console doctrine:database:drop --env=test --force && bin/console doctrine:schema:update --env=test --force && bin/phpunit --coverage-clover=my-coverage-file
                 coverage:
                     file: my-coverage-file
                     format: php-clover

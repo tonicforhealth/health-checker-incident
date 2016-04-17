@@ -14,3 +14,9 @@ web_profiler:
 
 #swiftmailer:
 #    disable_delivery: true
+parameters:
+    database_path: '%kernel.root_dir%/data/test_data.db3'
+    incident.notifications.subjects:
+        file: ~
+        request: ~
+        email: ~
