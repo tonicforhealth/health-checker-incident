@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * Class DefaultControllerTest
- * @package IncidentBundle\Tests\Controller
  */
 class DefaultControllerTest extends WebTestCase
 {

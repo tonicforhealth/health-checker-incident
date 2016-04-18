@@ -12,9 +12,9 @@ class SubjectsConfigProvider
      */
     private $subjects = [];
 
-
     /**
      * SubjectsConfigProvider constructor.
+     *
      * @param array $subjectsConfig
      */
     public function __construct($subjectsConfig)
@@ -31,6 +31,7 @@ class SubjectsConfigProvider
 
     /**
      * @param string $subjectsType
+     *
      * @return array
      */
     public function getByType($subjectsType)

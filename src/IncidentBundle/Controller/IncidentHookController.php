@@ -3,22 +3,22 @@
 namespace IncidentBundle\Controller;
 
 use IncidentBundle\Entity\Incident;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use \Exception;
+use Exception;
 
 /**
  * Class IncidentHookController
- * @package IncidentBundle\Controller
  */
 class IncidentHookController extends Controller
 {
     /**
      * @Route("/dnnlpwo2cj287189282bbcnjskshewk/{checkIdent}")
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function emailReciveCheckProcHookAction($checkIdent, Request $request)
@@ -31,7 +31,7 @@ class IncidentHookController extends Controller
 
         try {
             $entityManager = $this->getDoctrine()->getManager();
-            if (! $incident = $this->getIncident($ident)) {
+            if (!$incident = $this->getIncident($ident)) {
                 $incident = new Incident($ident);
                 $entityManager->persist($incident);
             }
@@ -41,13 +41,14 @@ class IncidentHookController extends Controller
         } catch (Exception $e) {
             $errors[] = $e;
         }
-        $responseData['status'] = empty($errors) ?'ok':'error';
+        $responseData['status'] = empty($errors) ? 'ok' : 'error';
 
         return new Response(json_encode($responseData));
     }
 
     /**
      * @param string $ident
+     *
      * @return Incident
      */
     protected function getIncident($ident)
@@ -61,6 +62,7 @@ class IncidentHookController extends Controller
 
     /**
      * @param array $errors
+     *
      * @return \Closure
      */
     protected function getErrorHandlerCallback(&$errors)
@@ -72,6 +74,7 @@ class IncidentHookController extends Controller
 
     /**
      * @param $checkIdent
+     *
      * @return string
      */
     protected function getIdent($checkIdent)

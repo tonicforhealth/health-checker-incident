@@ -25,7 +25,7 @@ class SirenCollectionPass implements CompilerPassInterface
     const INCIDENT_SIREN = 'incident.siren';
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
@@ -42,8 +42,7 @@ class SirenCollectionPass implements CompilerPassInterface
         );
 
         foreach ($taggedServices as $id => $tags) {
-
-                $sirenDefinition->addMethodCall(
+            $sirenDefinition->addMethodCall(
                     'add',
                     [new Reference($id)]
                 );

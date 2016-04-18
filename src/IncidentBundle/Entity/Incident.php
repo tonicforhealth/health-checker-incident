@@ -8,18 +8,16 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
-use JMS\Serializer\Annotation\Accessor;
-use JMS\Serializer\Annotation\AccessType;
 use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Type;
 use SplObserver;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use TonicHealthCheck\Incident\IncidentInterface;
 
 /**
  * TonicHealthCheck\Entity\Incident;
+ *
  * @ExclusionPolicy("none")
  * @HasLifecycleCallbacks
  * @Entity(repositoryClass="IncidentBundle\Repository\IncidentRepository")
@@ -54,6 +52,7 @@ class Incident implements IncidentInterface
 
     /**
      * Type of the problems (urgent, warning, minor)
+     *
      * @Column(type="string", length=32, name="`type`", nullable=true)
      * @Expose
      * @Type("string")
@@ -83,6 +82,7 @@ class Incident implements IncidentInterface
 
     /**
      * Incident constructor.
+     *
      * @param string $ident
      * @param string $name
      */
@@ -94,11 +94,15 @@ class Incident implements IncidentInterface
 
     /**
      * Attach an SplObserver
+     *
      * @link http://php.net/manual/en/splsubject.attach.php
+     *
      * @param SplObserver $observer <p>
-     * The <b>SplObserver</b> to attach.
-     * </p>
+     *                              The <b>SplObserver</b> to attach.
+     *                              </p>
+     *
      * @return void
+     *
      * @since 5.1.0
      */
     public function attach(SplObserver $observer)
@@ -108,11 +112,15 @@ class Incident implements IncidentInterface
 
     /**
      * Detach an observer
+     *
      * @link http://php.net/manual/en/splsubject.detach.php
+     *
      * @param SplObserver $observer <p>
-     * The <b>SplObserver</b> to detach.
-     * </p>
+     *                              The <b>SplObserver</b> to detach.
+     *                              </p>
+     *
      * @return void
+     *
      * @since 5.1.0
      */
     public function detach(SplObserver $observer)
@@ -126,8 +134,11 @@ class Incident implements IncidentInterface
 
     /**
      * Notify an observer
+     *
      * @link http://php.net/manual/en/splsubject.notify.php
+     *
      * @return void
+     *
      * @since 5.1.0
      */
     public function notify()
@@ -141,7 +152,7 @@ class Incident implements IncidentInterface
     /**
      * Set id
      *
-     * @param integer $id
+     * @param int $id
      *
      * @return Incident
      */
@@ -155,7 +166,7 @@ class Incident implements IncidentInterface
     /**
      * Get id
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -257,7 +268,7 @@ class Incident implements IncidentInterface
     /**
      * Set status
      *
-     * @param integer $status
+     * @param int $status
      *
      * @return Incident
      */
@@ -271,7 +282,7 @@ class Incident implements IncidentInterface
     /**
      * Get status
      *
-     * @return integer
+     * @return int
      */
     public function getStatus()
     {
@@ -281,7 +292,7 @@ class Incident implements IncidentInterface
     /**
      * Set externalId
      *
-     * @param integer $externalId
+     * @param int $externalId
      *
      * @return Incident
      */
@@ -295,7 +306,7 @@ class Incident implements IncidentInterface
     /**
      * Get externalId
      *
-     * @return integer
+     * @return int
      */
     public function getExternalId()
     {

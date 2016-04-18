@@ -5,7 +5,6 @@ namespace IncidentBundle\Controller;
 use Exception;
 use IncidentBundle\Entity\Incident;
 use JMS\Serializer\Serializer;
-use JMS\SerializerBundle\DependencyInjection\JMSSerializerExtension;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -14,7 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class IncidentController
- * @package IncidentBundle\Controller
  */
 class IncidentController extends Controller
 {
@@ -26,7 +24,9 @@ class IncidentController extends Controller
     /**
      * @Route("/{ident}")
      * @Method({"GET"})
+     *
      * @param int $ident
+     *
      * @return Response
      */
     public function getAction($ident)
@@ -52,8 +52,10 @@ class IncidentController extends Controller
     /**
      * @Route("/{ident}")
      * @Method({"POST"})
+     *
      * @param int     $ident
      * @param Request $request
+     *
      * @return Response
      */
     public function postAction($ident, Request $request)
@@ -84,7 +86,9 @@ class IncidentController extends Controller
     /**
      * @Route("/")
      * @Method({"PUT"})
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function putAction(Request $request)
@@ -113,7 +117,9 @@ class IncidentController extends Controller
     /**
      * @Route("/{ident}")
      * @Method({"DELETE"})
+     *
      * @param int $ident
+     *
      * @return Response
      */
     public function deleteAction($ident)
@@ -155,7 +161,8 @@ class IncidentController extends Controller
 
     /**
      * @param string $ident
-     * @param array $errors
+     * @param array  $errors
+     *
      * @return Incident
      */
     protected function getIncident($ident, &$errors)
@@ -172,6 +179,7 @@ class IncidentController extends Controller
 
     /**
      * @param array $errors
+     *
      * @return \Closure
      */
     protected function getErrorHandlerCallback(&$errors)
@@ -180,5 +188,4 @@ class IncidentController extends Controller
             $errors[] = ['code' => $errno, 'text' => $errstr];
         };
     }
-
 }

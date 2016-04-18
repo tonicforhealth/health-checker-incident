@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class IncidentControllerTest extends WebTestCase
 {
-    const UPDATED_NAME = "updated.name";
+    const UPDATED_NAME = 'updated.name';
     const UPDATED_STATUS = 35;
     const INCIDENT_DEF_IDENT = 'test_ident-23';
 

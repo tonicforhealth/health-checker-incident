@@ -9,7 +9,6 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
  * Class IncidentExtension
- * @package IncidentBundle\DependencyInjection
  */
 class IncidentExtension extends Extension
 {

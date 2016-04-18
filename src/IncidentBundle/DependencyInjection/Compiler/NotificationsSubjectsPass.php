@@ -41,7 +41,7 @@ class NotificationsSubjectsPass implements CompilerPassInterface
     private $subjectsProvider;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
@@ -88,7 +88,6 @@ class NotificationsSubjectsPass implements CompilerPassInterface
     protected function processSubjects($subjects, $typeName, $notSubjectsId)
     {
         foreach ($subjects as $subjectsId => $subjectsItem) {
-
             $subjectDef = $this->createSubjectDef($typeName, $subjectsItem, $subjectsId);
             $subjectId = sprintf(self::SUBJECTS_ID, $typeName, $subjectsId);
             $this->getContainer()->setDefinition($subjectId, $subjectDef);
@@ -103,6 +102,7 @@ class NotificationsSubjectsPass implements CompilerPassInterface
 
     /**
      * @param string $schedule
+     *
      * @return DefinitionDecorator
      */
     protected function createScheduleDef($schedule)
@@ -117,6 +117,7 @@ class NotificationsSubjectsPass implements CompilerPassInterface
      * @param string $typeName
      * @param array  $subjectsItem
      * @param string $subjectsId
+     *
      * @return DefinitionDecorator
      */
     protected function createSubjectDef($typeName, $subjectsItem, $subjectsId)
