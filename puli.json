@@ -109,6 +109,14 @@
             "install-path": "vendor/mtdowling/cron-expression",
             "installer": "composer"
         },
+        "padraic/humbug_get_contents": {
+            "install-path": "vendor/padraic/humbug_get_contents",
+            "installer": "composer"
+        },
+        "padraic/phar-updater": {
+            "install-path": "vendor/padraic/phar-updater",
+            "installer": "composer"
+        },
         "paragonie/random_compat": {
             "install-path": "vendor/paragonie/random_compat",
             "installer": "composer"
@@ -210,12 +218,20 @@
             "install-path": "vendor/psr/log",
             "installer": "composer"
         },
+        "puli/cli": {
+            "install-path": "vendor/puli/cli",
+            "installer": "composer"
+        },
         "puli/composer-plugin": {
             "install-path": "vendor/puli/composer-plugin",
             "installer": "composer"
         },
         "puli/discovery": {
             "install-path": "vendor/puli/discovery",
+            "installer": "composer"
+        },
+        "puli/manager": {
+            "install-path": "vendor/puli/manager",
             "installer": "composer"
         },
         "puli/repository": {
@@ -341,6 +357,10 @@
         },
         "webmozart/assert": {
             "install-path": "vendor/webmozart/assert",
+            "installer": "composer"
+        },
+        "webmozart/console": {
+            "install-path": "vendor/webmozart/console",
             "installer": "composer"
         },
         "webmozart/expression": {

@@ -28,10 +28,9 @@
         "sensio/framework-extra-bundle": "~3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "jms/serializer-bundle": "~1.1",
-        "puli/symfony-bundle": "~1.0",
         "tonicforhealth/health-checker-incident-component": "~0.1",
         "gremo/hmac-authentication-bundle": "^0.1.1",
-        "puli/composer-plugin": "^1.0.0-beta9"
+        "puli/symfony-bundle": "~1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

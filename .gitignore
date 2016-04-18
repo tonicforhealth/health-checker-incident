@@ -15,7 +15,7 @@
 /vendor/
 /web/bundles/
 /.idea
-/app/data/data.db3
+/app/data/*data.db3
 /.puli
 /bin
 !/bin/console
