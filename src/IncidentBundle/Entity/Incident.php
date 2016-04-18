@@ -15,6 +15,7 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Type;
 use SplObserver;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use TonicHealthCheck\Incident\IncidentInterface;
 
 /**
@@ -23,7 +24,6 @@ use TonicHealthCheck\Incident\IncidentInterface;
  * @HasLifecycleCallbacks
  * @Entity(repositoryClass="IncidentBundle\Repository\IncidentRepository")
  * @Table(name="incident")
- *
  */
 class Incident implements IncidentInterface
 {
@@ -47,7 +47,7 @@ class Incident implements IncidentInterface
     private $external_id = null;
 
     /**
-     * @Column(type="string", length=128)
+     * @Column(type="string", length=128, unique=true)
      * @Expose
      */
     private $ident;

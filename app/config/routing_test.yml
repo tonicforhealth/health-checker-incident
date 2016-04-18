@@ -1,0 +1,4 @@
+_dev_all:
+    resource: routing_dev.yml
+_hook_all:
+    resource: routing_hook.yml

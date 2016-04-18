@@ -109,6 +109,14 @@
             "install-path": "vendor/mtdowling/cron-expression",
             "installer": "composer"
         },
+        "padraic/humbug_get_contents": {
+            "install-path": "vendor/padraic/humbug_get_contents",
+            "installer": "composer"
+        },
+        "padraic/phar-updater": {
+            "install-path": "vendor/padraic/phar-updater",
+            "installer": "composer"
+        },
         "paragonie/random_compat": {
             "install-path": "vendor/paragonie/random_compat",
             "installer": "composer"
@@ -149,9 +157,54 @@
             "install-path": "vendor/phpcollection/phpcollection",
             "installer": "composer"
         },
+        "phpdocumentor/reflection-docblock": {
+            "install-path": "vendor/phpdocumentor/reflection-docblock",
+            "installer": "composer",
+            "env": "dev"
+        },
         "phpoption/phpoption": {
             "install-path": "vendor/phpoption/phpoption",
             "installer": "composer"
+        },
+        "phpspec/prophecy": {
+            "install-path": "vendor/phpspec/prophecy",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "phpunit/php-code-coverage": {
+            "install-path": "vendor/phpunit/php-code-coverage",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "phpunit/php-file-iterator": {
+            "install-path": "vendor/phpunit/php-file-iterator",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "phpunit/php-text-template": {
+            "install-path": "vendor/phpunit/php-text-template",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "phpunit/php-timer": {
+            "install-path": "vendor/phpunit/php-timer",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "phpunit/php-token-stream": {
+            "install-path": "vendor/phpunit/php-token-stream",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "phpunit/phpunit": {
+            "install-path": "vendor/phpunit/phpunit",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "phpunit/phpunit-mock-objects": {
+            "install-path": "vendor/phpunit/phpunit-mock-objects",
+            "installer": "composer",
+            "env": "dev"
         },
         "psr/cache": {
             "install-path": "vendor/psr/cache",
@@ -165,12 +218,20 @@
             "install-path": "vendor/psr/log",
             "installer": "composer"
         },
+        "puli/cli": {
+            "install-path": "vendor/puli/cli",
+            "installer": "composer"
+        },
         "puli/composer-plugin": {
             "install-path": "vendor/puli/composer-plugin",
             "installer": "composer"
         },
         "puli/discovery": {
             "install-path": "vendor/puli/discovery",
+            "installer": "composer"
+        },
+        "puli/manager": {
+            "install-path": "vendor/puli/manager",
             "installer": "composer"
         },
         "puli/repository": {
@@ -192,6 +253,41 @@
         "ramsey/uuid": {
             "install-path": "vendor/ramsey/uuid",
             "installer": "composer"
+        },
+        "sebastian/comparator": {
+            "install-path": "vendor/sebastian/comparator",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "sebastian/diff": {
+            "install-path": "vendor/sebastian/diff",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "sebastian/environment": {
+            "install-path": "vendor/sebastian/environment",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "sebastian/exporter": {
+            "install-path": "vendor/sebastian/exporter",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "sebastian/global-state": {
+            "install-path": "vendor/sebastian/global-state",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "sebastian/recursion-context": {
+            "install-path": "vendor/sebastian/recursion-context",
+            "installer": "composer",
+            "env": "dev"
+        },
+        "sebastian/version": {
+            "install-path": "vendor/sebastian/version",
+            "installer": "composer",
+            "env": "dev"
         },
         "seld/jsonlint": {
             "install-path": "vendor/seld/jsonlint",
@@ -261,6 +357,10 @@
         },
         "webmozart/assert": {
             "install-path": "vendor/webmozart/assert",
+            "installer": "composer"
+        },
+        "webmozart/console": {
+            "install-path": "vendor/webmozart/console",
             "installer": "composer"
         },
         "webmozart/expression": {
