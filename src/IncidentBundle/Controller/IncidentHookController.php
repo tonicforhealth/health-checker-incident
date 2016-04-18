@@ -23,30 +23,40 @@ class IncidentHookController extends Controller
      */
     public function emailReciveCheckProcHookAction($checkIdent, Request $request)
     {
+        $ident = $this->getIdent($checkIdent);
+
         $errors = [];
         $responseData = [];
         set_error_handler($this->getErrorHandlerCallback($errors));
 
         try {
             $entityManager = $this->getDoctrine()->getManager();
-            $incident = new Incident($checkIdent);
+            if (! $incident = $this->getIncident($ident)) {
+                $incident = new Incident($ident);
+                $entityManager->persist($incident);
+            }
             $incident->setMessage('Email don\'t receive webhook check');
-            $entityManager->persist($incident);
-            $entityManager->flush();
-
             $incident->setStatus(500);
-
             $entityManager->flush();
-
-
-            $entityManager->persist($incident);
-            $entityManager->flush();
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $errors[] = $e;
         }
-        $responseData['status'] = empty($errors)?'ok':'error';
+        $responseData['status'] = empty($errors) ?'ok':'error';
 
         return new Response(json_encode($responseData));
+    }
+
+    /**
+     * @param string $ident
+     * @return Incident
+     */
+    protected function getIncident($ident)
+    {
+        $incident = $this->getDoctrine()
+            ->getRepository('IncidentBundle:Incident')
+            ->findOneBy(['ident' => $ident], ['id' => 'desc']);
+
+        return $incident;
     }
 
     /**
@@ -58,5 +68,14 @@ class IncidentHookController extends Controller
         return function ($errno, $errstr, $errfile, $errline) use (&$errors) {
             $errors[] = ['code' => $errno, 'text' => $errstr];
         };
+    }
+
+    /**
+     * @param $checkIdent
+     * @return string
+     */
+    protected function getIdent($checkIdent)
+    {
+        return sprintf('%s.%s', $checkIdent, date('Ymd'));
     }
 }
