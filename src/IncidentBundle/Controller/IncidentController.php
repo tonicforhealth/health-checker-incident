@@ -73,6 +73,7 @@ class IncidentController extends Controller
                 $incidentNew->setId($incident->getId());
                 $entityManager->merge($incidentNew);
                 $entityManager->flush();
+
                 $responseData['data'] = $this->get('jms_serializer')->toArray($incident);
             }
         } catch (Exception $e) {
@@ -98,16 +99,21 @@ class IncidentController extends Controller
 
         $responseData = ['data' => [], 'errors' => []];
         try {
+
             $entityManager = $this->getDoctrine()->getManager();
             /** @var Serializer $serializer */
             $serializer = $this->get('jms_serializer');
             /** @var Incident $incident */
             $incident = $serializer->deserialize($request->getContent(), Incident::class, 'json');
+
             $entityManager->persist($incident);
+
             $entityManager->flush();
+
+
             $responseData['data'] = $this->get('jms_serializer')->toArray($incident);
         } catch (Exception $e) {
-            $errors[] = $e;
+            $errors[] = $e->getMessage();
         }
         $responseData['errors'] = $errors;
 
