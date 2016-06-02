@@ -116,7 +116,7 @@ services:
         arguments: ['%incident.notifications.request.auth.token%']
 
     incident.notifications.request.client.auth_pligin:
-        class: Http\Client\Plugin\AuthenticationPlugin
+        class: Http\Client\Common\Plugin\AuthenticationPlugin
         arguments: ['@incident.notifications.request.client.auth']
 
     incident.notifications.request.httpclient.factory:
@@ -127,7 +127,7 @@ services:
         factory: ['@incident.notifications.request.httpclient.factory', 'find']
 
     incident.notifications.request.pluginclient:
-        class: Http\Client\Plugin\PluginClient
+        class: Http\Client\Common\PluginClient
         arguments:
               - '@incident.notifications.request.httpclient'
               - ['@incident.notifications.request.client.auth_pligin']
