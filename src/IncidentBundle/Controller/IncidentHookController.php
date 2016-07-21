@@ -35,7 +35,7 @@ class IncidentHookController extends Controller
                 $incident = new Incident($ident);
                 $entityManager->persist($incident);
             }
-            $incident->setMessage('Email don\'t receive webhook check');
+            $incident->setMessage('Can\'t send&receive email check fail');
             $incident->setStatus(500);
             $entityManager->flush();
         } catch (Exception $e) {
