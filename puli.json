@@ -347,6 +347,10 @@
             "install-path": "vendor/tonicforhealth/health-checker-incident-component",
             "installer": "composer"
         },
+        "tonicforhealth/pagerduty-client": {
+            "install-path": "vendor/tonicforhealth/pagerduty-client",
+            "installer": "composer"
+        },
         "twig/twig": {
             "install-path": "vendor/twig/twig",
             "installer": "composer"

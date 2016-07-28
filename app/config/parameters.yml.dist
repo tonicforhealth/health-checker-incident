@@ -31,7 +31,11 @@ parameters:
     incident.notifications.request.auth.password: null
     incident.notifications.request.resource_url: /incidents
 
+    incident.notifications.pager_duty.api_root_url: https://events.pagerduty.com/generic/2010-04-15
+    incident.notifications.pager_duty.service_key: null
+
     incident.notifications.subjects:
         file: ~
         request: ~
+        pager_duty: ~
         email: ~

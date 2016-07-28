@@ -14,6 +14,9 @@ parameters:
     incident.notifications.request.auth.password: null
     incident.notifications.request.resource_url: null
 
+    incident.notifications.pager_duty.api_root_url: https://events.pagerduty.com/generic/2010-04-15
+    incident.notifications.pager_duty.service_key: null
+
     incident.notifications.subjects: {}
 
 services:
@@ -43,13 +46,6 @@ services:
         arguments: ['@incident.siren','%incident.notifications.subjects%']
         tags:
           - { name: doctrine.event_subscriber, connection: default }
-
-    incident.checks_type_mapper:
-        class: TonicHealthCheck\Incident\ChecksIncidentTypeMapper
-
-    incident.manager:
-        class: TonicHealthCheck\Incident\IncidentManager
-        arguments: ['@doctrine.orm.entity_manager', '@incident.checks_type_mapper']
 
     incident.notifications.file:
         class: TonicHealthCheck\Incident\Siren\NotificationType\FileNotificationType
@@ -161,5 +157,33 @@ services:
         arguments:
             - '@incident.notifications.request'
             - '@incident.notifications.request.subjects'
+        tags:
+            - { name: incident.siren.notification }
+
+    incident.notifications.pager_duty.event_client_factory:
+        class: TonicForHealth\PagerDutyClient\Client\EventClientFactory
+
+
+    incident.notifications.pager_duty.event_client:
+        class: TonicForHealth\PagerDutyClient\Client\EventClient
+        factory: ["@incident.notifications.pager_duty.event_client_factory", createEventClient]
+        arguments:
+            - '%incident.notifications.pager_duty.api_root_url%'
+
+    incident.notifications.pager_duty:
+        class: TonicHealthCheck\Incident\Siren\NotificationType\PagerDutyNotificationType
+        arguments:
+            - '@incident.notifications.pager_duty.event_client'
+            - '%incident.notifications.pager_duty.service_key%'
+    incident.notifications.pager_duty.subjects:
+        class: TonicHealthCheck\Incident\Siren\Subject\SubjectCollection
+        tags:
+            - { name: incident.siren.notification.subjects, type_name: pager_duty }
+
+    incident.notifications.pager_duty.siren:
+        class: TonicHealthCheck\Incident\Siren\IncidentSiren
+        arguments:
+            - '@incident.notifications.pager_duty'
+            - '@incident.notifications.pager_duty.subjects'
         tags:
             - { name: incident.siren.notification }

@@ -22,6 +22,8 @@ class IncidentController extends Controller
     private $serializer;
 
     /**
+     * Get an exist incident
+     *
      * @Route("/{ident}")
      * @Method({"GET"})
      *
@@ -50,6 +52,8 @@ class IncidentController extends Controller
     }
 
     /**
+     * Updates an exist incident
+     *
      * @Route("/{ident}")
      * @Method({"POST"})
      *
@@ -85,6 +89,8 @@ class IncidentController extends Controller
     }
 
     /**
+     * Creates a new incident
+     *
      * @Route("/")
      * @Method({"PUT"})
      *
@@ -121,6 +127,8 @@ class IncidentController extends Controller
     }
 
     /**
+     * Delete an exist incident
+     *
      * @Route("/{ident}")
      * @Method({"DELETE"})
      *
